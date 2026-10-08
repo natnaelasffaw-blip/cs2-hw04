@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+
+    <style>
+        .board {
+            width: 330px;
+        }
+
+        .square {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            background-color: lightblue;
+            float: left;
+            font-size: 70px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .square:hover {
+            background-color: lightgray;
+        }
+
+        #turn {
+            border: 1px solid black;
+            width: 320px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        #winner {
+            border: 1px solid black;
+            width: 320px;
+            padding: 5px;
+            clear: both;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Tic Tac Toe</h1>
+
+    <div id="turn">Press Start Game</div>
+
+    <div class="board">
+        <script>
+            const NUM_SQUARES = 9;
+            for (i=0; i<NUM_SQUARES; i++)
+            {
+                id = "sq"+i;
+                document.write( "<div class='square' id='" + id + "'></div>" );
+            }
+        </script>
+    </div>
+
+    <div id="winner"></div>
+
+    <button onclick="startGame()">Start Game</button>
+
+    <script>
+        let turn = "X";
+        let playing = false;
+
+        let squares = document.querySelectorAll(".square");
+
+        squares.forEach(function(square) {
+            square.addEventListener("click", squareClicked);
+        });
+
+        function squareClicked() {
+            if (playing == false) {
+                return;
+            }
+
+            if (this.innerHTML != "") {
+                return;
+            }
+
+            this.innerHTML = turn;
+
+            alert("Square " + this.id.substring(2));
+
+            if (turn == "X") {
+                turn = "O";
+            }
+            else {
+                turn = "X";
+            }
+
+            document.getElementById("turn").innerHTML = turn + "'s Turn";
+        }
+
+        function startGame() {
+            squares.forEach(function(square) {
+                square.innerHTML = "";
+            });
+
+            playing = true;
+
+            if (Math.random() < 0.5) {
+                turn = "X";
+            }
+            else {
+                turn = "O";
+            }
+
+            document.getElementById("turn").innerHTML = turn + "'s Turn";
+            document.getElementById("winner").innerHTML = "";
+        }
+    </script>
+
+</body>
+</html>
